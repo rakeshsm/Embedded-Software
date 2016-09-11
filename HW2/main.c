@@ -53,17 +53,21 @@ printf("Size of int32_t* is %lu \n" ,sizeof(int32_t *));
 	char prevMemory = *(s-1);
 	char postMemory = *(s+arrsize);
 	
+	printf("String before reverse = %s\n", s);
+	
 	char ret = reverse_string((char *)s, strlen(s));
 	
 	int strrevcheck1 = 1;
-	for(int i=0;i<strlen(s);i++){
+	int i=0;	
+	for(i=0;i<strlen(s);i++){
 		if(*(temparr+i) != *(s+strlen(s) -i -1))
 			strrevcheck1= 0;
 	}
 
 	
 	int strrevcheck2 = 1;
-	for(int i=0;i<strlen(s);i++){
+	i=0;
+	for(i=0;i<strlen(s);i++){
 		if((temparr[i]) != s[strlen(s) -i -1])
 			strrevcheck2= 0;
 	}
@@ -75,7 +79,7 @@ printf("Size of int32_t* is %lu \n" ,sizeof(int32_t *));
 
 
 	if (strrevcheck1==1 && strrevcheck2==1 && negcheck3 ==1 && ret==0)
-		printf("The string reverse is %s ", s);
+		printf("String after  reverse = %s\n", s);
 	else
 		printf("Error, Not able to reverse");
 
