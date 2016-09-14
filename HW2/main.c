@@ -19,6 +19,18 @@ float * myfloat1;
 void * myvoid1;
 
 
+typedef int8_t INT8;
+typedef uint8_t BYTE;
+typedef int8_t INT8;
+typedef uint8_t UNINT8;
+typedef int16_t INT16;
+typedef uint16_t UINT16;
+typedef int32_t INT32;
+typedef uint32_t UNINT32;
+typedef int64_t INT64;
+typedef uint64_t UINT64;
+
+
 printf("Size of Char is %lu \n", sizeof(mychar));
 printf("Size of int is %lu \n", sizeof(myint));
 printf("Size of float is %lu \n", sizeof(myfloat));
