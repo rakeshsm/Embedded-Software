@@ -9,14 +9,12 @@ int main(void)
 	uart_init(BAUD_RATE);				//initialise UART0
 
 #ifdef PROFILE
-uint8_t a;
 	init_profiler();
-	start_time();
 	/*------------------------------------------------------------*/
-	// enter function to profile here
+	//
 	testMemoryTimeTest();
+	//uncomment functions in testMemoryTimeTest(); for profiling them
 	/*--------------------------------------------------------------*/
-	end_time();
 	while(1);
 #endif
 
