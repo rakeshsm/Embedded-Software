@@ -7,33 +7,25 @@
 
 #include "main.h"
 #include "stdlib.h"
-
+uint8_t flag_once=0;
 /*---------------------------------------------------------------------------
  *uint8_t init_cbuff(cir_buff_t *cptr,uint8_t size)
  *This function is can be used to initialise circular buffer of size "size"
  ---------------------------------------------------------------------------*/
-uint8_t init_cbuff(cir_buff_t *cptr,uint8_t size,uint8_t r_t)
+uint8_t init_cbuff(cir_buff_t *cptr,uint8_t size)
 {
-	if(r_t ==1)
-		cptr->start = &R_arr[0]; //allocate buffer structure in heap
-	if(r_t ==0)
-		cptr->start = &T_arr[0];
+//	if(r_t ==1)
+//		cptr->start = &R_arr[0]; //allocate buffer structure in heap
+//	if(r_t ==0)
+//		cptr->start = &T_arr[0];
+	cptr->start = malloc(sizeof(uint8_t)* size);
     cptr->size = size;							 //total size of buffer
     cptr->end=cptr->start + size;				 //calculate address of end of buffer
     cptr->head = cptr->start;					 //initially head and tail are at start
     cptr->tail = cptr->start;
     cptr->num_items = 0;			   			 //current number of items in buffer
 }
-/*---------------------------------------------------------------------------
- *
- ---------------------------------------------------------------------------*/
-/*
-uint8_t *Allocate(cir_buff_t *cptr,uint8_t size)
-{
-	cptr.start = malloc((size)*sizeof(uint8_t));
-	return cptr.start;
-}
-*/
+
 /*---------------------------------------------------------------------------
  *uint8_t Destroy(cir_buff_t *cptr)
  *This function destroys or frees up the heap memory assigned to the buffer
@@ -68,7 +60,7 @@ uint8_t buffer_full(cir_buff_t *cptr)
  ---------------------------------------------------------------------------*/
 uint8_t buffer_empty(cir_buff_t *cptr)
 {
-	if((cptr->head == cptr->tail) && (cptr->num_items == 0))
+	if(cptr->num_items == 0)
 		return 1;
     else
     	return 0;
@@ -83,15 +75,16 @@ uint8_t buffer_empty(cir_buff_t *cptr)
  ---------------------------------------------------------------------------*/
 uint8_t add_cbuff(cir_buff_t *cptr,uint8_t data)
 {
-	if (cptr->head > cptr->end)  			//wrap around to start of buffer
+	if (cptr->head > cptr->end)  {			//wrap around to start of buffer
 		cptr->head = cptr->start;
+		LOG_0("\r\nWrap around\r\n",15);
+	}
+
 	if(buffer_full(cptr))					//check if buffer is full
 		{
-			LOG_0("\r\nBuffer is full\r\n",18);
 	        return 0;
 		}
     *cptr->head = data;						//write data at head
-    //LOG_0("ENTERED ADD BUFFER",18);
     cptr->num_items++;						//increment item count
     cptr->head++;							//move head to next location
     return 1;								//return on success
@@ -107,13 +100,16 @@ uint8_t add_cbuff(cir_buff_t *cptr,uint8_t data)
 uint8_t del_cbuff(cir_buff_t *cptr)
 {
 	uint8_t data;
-    if (cptr->tail == cptr->end)  			//wrap tail ptr to start of buffer
+    if (cptr->tail > cptr->end){  			//wrap tail ptr to start of buffer
     	cptr->tail = cptr->start;
+    LOG_0("\r\nWrap around\r\n",15);
+    }
+
 	if(buffer_empty(cptr))					//check if buffer empty
 	{
-		LOG_0("\r\nBuffer is empty\r\n",19);
         return 0;
 	}
+
     data = *cptr->tail;						//read at tail
     cptr->num_items--;						//decrement item count
     cptr->tail++;							//increment tail after read
