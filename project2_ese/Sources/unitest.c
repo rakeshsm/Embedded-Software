@@ -5,6 +5,9 @@
  *      Author: VIJOY-PC
  */
 #include "main.h"
+#include "string.h"
+#include "stdlib.h"
+
 extern uint8_t flag_once;
 void buffer_test(void)
 {
@@ -177,13 +180,13 @@ void testMemMove(void){
 	char arr[length] ;
 	char arr1[length];
 	uint8_t * src = arr;
-	uint8_t *dst = arr1;
+	const uint8_t *dst;
 	char stringarr[]={"\r\nMEMOVE for copying of length :"};
 	int n = sizeof(stringarr)/sizeof(stringarr[0]);
 	LOG_1("\r\nMEMOVE for copying of length :",n
 			,length,4);
 	start_time();
-	int8_t k = memmove(src,dst,length);
+	int8_t* k = memmove(src,dst,length);
 	end_time();
 	if(length ==1000){
 		length =500;
@@ -215,14 +218,16 @@ void testMemReverse(void){
 
 
 void testMemZero(void){
-	uint32_t length=1;
+		uint32_t length=1;
+
 		while(length< 10000){
 		length=length*10;
-		int arr[length] ;
-		uint8_t * src = arr;
+		uint8_t arr[length] ;
+		uint8_t* src;
+		src = arr;
 		LOG_1("\r\nMEMSET for copying of length :",32,length,sizeof(length));
 		start_time();
-		int8_t k = memset(src,0,length);
+		int8_t* k = memset(src,0,length);
 		end_time();
 		if(length ==1000){
 			length =500;
@@ -240,7 +245,7 @@ void testMemZero(void){
 void testitoa(void){
 	uint32_t length=1;
 		length=length*10;
-		int arr[length] ;
+		int8_t arr[length] ;
 		int8_t * src = arr;
 		int32_t data =100;
 		LOG_0("\r\nITOA test :",16);
@@ -259,7 +264,7 @@ void testitoa(void){
 void testatoi(void){
 	uint32_t length=1;
 		length=length*10;
-		int arr[length] ;
+		int8_t arr[length] ;
 		int8_t * src = arr;
 		int32_t data =100;
 		LOG_0("\r\nATOI test :",16);
@@ -273,7 +278,7 @@ void testftoa(void){
 		LOG_0("\r\nFTOA test :",15);
 		start_time();
 		float data =12.67;
-		int32_t* k = ftoa(data);
+		char* k = ftoa(data);
 		end_time();
 }
 
@@ -295,10 +300,10 @@ void testMalloc(){
 void testfree(){
 	cir_buff_t testcbuff;
 	int size = 25;
-	init_cbuff(&testcbuff,size,0);
+	init_cbuff(&testcbuff,size);
 	LOG_1("\r\nCIRCULAR BUFFER FREE TEST :",32,size,sizeof(size));
 	start_time();
-	free(&testcbuff);
+//	free(&testcbuff);
 	end_time();
 }
 
@@ -306,7 +311,7 @@ void testfree(){
 void testAddCbuff(){
 	cir_buff_t testcbuff;
 	int size = 25;
-	init_cbuff(&testcbuff,size,0);
+	init_cbuff(&testcbuff,size);
 	LOG_1("\r\nCIRCULAR BUFFER ADD TEST :",32,size,sizeof(size));
 	start_time();
 	int k = add_cbuff(&testcbuff,10);
@@ -316,7 +321,7 @@ void testAddCbuff(){
 void testRemoveCbuff(){
 	cir_buff_t testcbuff;
 	int size = 25;
-	init_cbuff(&testcbuff,size,1);
+	init_cbuff(&testcbuff,size);
 	int k1 = add_cbuff(&testcbuff,10);
 	LOG_1("\r\nCIRCULAR BUFFER REMOVE TEST :",32,size,sizeof(size));
 	start_time();
@@ -331,7 +336,6 @@ void testLogger(){
 	cir_buff_t testcbuff;
 	int size =1;
 	start_time();
-	//LOG_1("\r\nLOGGER TEST VERSION :",16,size,sizeof(size));
 	LOG_0("\r\nLOGGER TEST VE0\r\n",18);
 	end_time();
 }

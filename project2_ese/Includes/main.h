@@ -19,6 +19,9 @@
 #include "logger.h"
 #include "cbuffer.h"
 #include "profiler.h"
+#include "memory.h"
+#include "data.h"
+#include "unitest.h"
 
 #include <stdint.h>
 #include <math.h>
