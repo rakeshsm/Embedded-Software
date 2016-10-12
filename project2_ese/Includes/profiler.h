@@ -9,12 +9,13 @@
 #ifndef INCLUDES_PROFILER_H_
 #define INCLUDES_PROFILER_H_
 
-#define MOD_VAL 65535
-#define T1CLK  	CPU_INT_FAST_CLK_HZ
+#define MOD_VAL 39		//to get time period of 10Us
+#define T1CLK  	4
 
 void start_time(void);
-uint16_t end_time(void);
+void end_time(void);
 void init_profiler(void);
 
-extern uint8_t overflow_count;
+
+volatile extern uint32_t overflow_count;
 #endif /* INCLUDES_PROFILER_H_ */

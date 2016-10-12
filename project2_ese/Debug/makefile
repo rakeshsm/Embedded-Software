@@ -51,7 +51,7 @@ all: project2_ese.elf secondary-outputs
 project2_ese.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: Cross ARM C++ Linker'
-	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"Z:/Courses/ESE 5013/project2_ese/Project_Settings/Linker_Files" -Wl,-Map,"project2_ese.map" -specs=nano.specs -specs=nosys.specs -o "project2_ese.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/rakes/git1/myrepo/project2_ese/Project_Settings/Linker_Files" -Wl,-Map,"project2_ese.map" -specs=nano.specs -specs=nosys.specs -o "project2_ese.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 

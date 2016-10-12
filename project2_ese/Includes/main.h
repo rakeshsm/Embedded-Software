@@ -33,9 +33,10 @@ extern float b_color;				//brightness control
   #define FRDM	 			// uncomment this for serial debug (FRDM)
  // #define BBB   			// uncomment this for printf debug (BBB)
  // #define RGB_INTERACT   	// uncomment this to enable RGB LED Control from terminal
-  #define BUFFER_INERACT	// uncomment this to attach circular buffers to uart
+ // #define BUFFER_INERACT	// uncomment this to attach circular buffers to uart
  // #define UNIT_TEST       // uncomment this to perform circular buffer test log
- // #define LOGGER_TEST		// uncomment this to disable log test samples
+ // #define LOGGER_TEST		// uncomment this to enaable log test samples
+  #define PROFILE			// uncomment this to enable profile samples
 /*-------------------------------------------------------------------------------*/
 
 

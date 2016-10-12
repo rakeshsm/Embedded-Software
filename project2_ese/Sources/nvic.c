@@ -109,7 +109,7 @@ void UART0_IRQHandler (void)
  --------------------------------------------------------------------------------------------*/
 void TPM1_IRQHandler(void)
 {
-	if(TPM1_SC |= TPM_SC_TOF_MASK)
+	if(TPM1_SC & TPM_SC_TOF_MASK)
 	{
 		overflow_count++;					//keep count of oveflow
 		TPM1_SC |= TPM_SC_TOF_MASK;			//clear the tof bit by writing 1

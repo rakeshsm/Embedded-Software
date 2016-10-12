@@ -92,14 +92,17 @@ void LOG_1(uint8_t * data, uint8_t len, uint32_t  param, uint8_t data_type_size)
  * Also the uart transmission inside the log function can be enabled by the FRDM switch
  * and the printf function can be enabled by BBB switch
  ------------------------------------------------------------------------------------*/
-void LOG_2(uint8_t * data, uint8_t len, float param, uint8_t data_type_size)
+void LOG_2(uint8_t * data, uint8_t len, float param)
 {
 #ifdef DEBUG
 #ifdef FRDM
+	uint8_t size = 8;
 	LOG_0(data,len);
-	uint8_t dest[20];
-	ftoa(dest,param,6);
-	LOG_0(dest,data_type_size);
+	char *dest;
+	char temp[20];
+	dest = temp;
+	dest = ftoa(param);
+	LOG_0(dest,size);
 #endif
 #ifdef BBB
 	for (int i=0;i<len;i++)
@@ -171,30 +174,84 @@ int8_t itoa(int8_t *str, int32_t data, int32_t base)
 	else
 		return 0;
 }
-/*-------------------------------------------------------------------------------------
- *void ftoa(uint8_t *str, float data, uint8_t num_fract)
- *This function converts a floating point number (data) into an ASCII string (str)
- *SOURCE: -----------------------------------------------------------------------------------------------------------------------!!!!
- ------------------------------------------------------------------------------------*/
-void ftoa( uint8_t *str, float data, uint8_t num_fract)
+
+
+typedef union {
+long	L;
+float	F;
+}	LF_t;
+
+char *ftoa(float f)
 {
-	int decimal = (int)data;							//Split integer and fractional part
-    float fraction;
+	long mantissa, int_part, frac_part;
+	short exp2;
+	LF_t x;
+	char *p;
+	static char outbuf[15];
 
-	if (data<0)
-		fraction = (float)decimal - data;
+	if (f == 0.0)
+	{
+		outbuf[0] = '0';
+		outbuf[1] = '.';
+		outbuf[2] = '0';
+		outbuf[3] = 0;
+		return outbuf;
+	}
+	x.F = f;
+
+	exp2 = (unsigned char)(x.L >> 23) - 127;
+	mantissa = (x.L & 0xFFFFFF) | 0x800000;
+	frac_part = 0;
+	int_part = 0;
+
+	if (exp2 >= 23)
+		int_part = mantissa << (exp2 - 23);
+	else if (exp2 >= 0)
+	{
+		int_part = mantissa >> (23 - exp2);
+		frac_part = (mantissa << (exp2 + 1)) & 0xFFFFFF;
+	}
+	else /* if (exp2 < 0) */
+		frac_part = (mantissa & 0xFFFFFF) >> -(exp2 + 1);
+
+	p = outbuf;
+
+	if (x.L < 0)
+		*p++ = '-';
+
+	if (int_part == 0)
+		*p++ = '0';
 	else
-	    fraction = data - (float)decimal;
+	{
+		itoa(p, int_part, 10);
+		while (*p)
+			p++;
+	}
+	*p++ = '.';
 
-	int d_part = itoa(str,decimal,10);					// convert decimal part to string
-	while(*str != '\0')									//compute length of decimal string to determine where to put '.'
-		str++;
-	if (num_fract != 0)									// digits after the decimal point
-	    {
-	        *str = '.';  								// decimal point after the decimal part
-	        fraction = fraction * pow(10, num_fract);	// convert fractional part to whole number
+	if (frac_part == 0)
+		*p++ = '0';
+	else
+	{
+		char m, max;
+		max = sizeof (outbuf) - (p - outbuf) - 1;
+		if (max > 7)
+			max = 7;
+		/* print BCD */
+		for (m = 0; m < max; m++)
+		{
+			/* frac_part *= 10;	*/
+			frac_part = (frac_part << 3) + (frac_part << 1);
 
-	        itoa(str + 1,(int)fraction,10);
-	    }
+			*p++ = (frac_part >> 24) + '0';
+			frac_part &= 0xFFFFFF;
+		}
+		/* delete ending zeroes */
+		for (--p; p[0] == '0' && p[-1] != '.'; --p)
+			;
+		++p;
+	}
+	*p = 0;
+
+	return outbuf;
 }
-
