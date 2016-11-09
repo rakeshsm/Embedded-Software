@@ -41,7 +41,7 @@ int main(void)
 	init_profiler();
 
 #ifdef DMA_test
-	 uint8_t s[5009];
+	 uint8_t s[5000];
 	 uint8_t d[5000];
 
 	for(int i=0;i<5000;i++)
@@ -114,6 +114,28 @@ int main(void)
 			packet_complete = 0;
 		}
 	}
+#endif
+
+
+#ifdef Get_Status
+	spi0_init();
+	//LOG_0("\r\nRead Status Value");
+	uint8_t statusVal = nrf_status_read();
+	//LOG_1("\r\nThe Status Value =",statusVal);
+#endif
+
+#ifdef Write_Register
+	unsigned char data = 0x03;
+	//LOG_0("\r\nWriting Value to a register\r\n");
+	nrf_write_register(NRF24_REG_00_CONFIG, data);
+	//LOG_0("\rWrite to register successful");
+#endif
+
+#ifdef Read_Register
+	uint8_t regVal;
+		//LOG_0("\r\nReading Value from a register");
+		regVal = nrf_read_register(NRF24_REG_00_CONFIG);
+		LOG_1("\r\nThe Value read from the register =",regVal);
 #endif
 
     return 0;

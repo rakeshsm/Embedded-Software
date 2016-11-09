@@ -45,16 +45,17 @@
 							<tool command="${cross_prefix}${cross_c}${cross_suffix}" commandLinePattern="${COMMAND} ${cross_toolchain_flags} ${FLAGS} -c ${OUTPUT_FLAG} ${OUTPUT_PREFIX}${OUTPUT} ${INPUTS}" errorParsers="org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser" id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.866368563" name="Cross ARM C Compiler" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler">
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.std.1728224780" name="Language standard" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.std" useByScannerDiscovery="true" value="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.std.c99" valueType="enumerated"/>
 								<option id="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths.607796425" name="Include paths (-I)" superClass="ilg.gnuarmeclipse.managedbuild.cross.option.c.compiler.include.paths" useByScannerDiscovery="false" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;../Sources&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Sources\app_layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Sources\dev_layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Sources\fw_layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Sources\system&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;../Includes&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Includes\app_layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Includes\dev_layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Includes\fw layer&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\workspace.kds\project3_ese\Includes\system&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Sources\app_layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Includes&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Sources\dev_layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Sources\fw_layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Sources\system&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Includes\app_layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Includes\dev_layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Includes\fw layer&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\Users\VIJOY-PC\git\myrepo\project3_ese\Includes\system&quot;"/>
 								</option>
 								<inputType id="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input.1029499142" superClass="ilg.gnuarmeclipse.managedbuild.cross.tool.c.compiler.input"/>
 							</tool>
