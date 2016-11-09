@@ -41,12 +41,12 @@ int main(void)
 	init_profiler();
 
 #ifdef DMA_test
-	 uint8_t s[500];
-	 uint8_t d[500];
+	 uint8_t s[5009];
+	 uint8_t d[5000];
 
-	for(int i=0;i<500;i++)
+	for(int i=0;i<5000;i++)
 		d[i] = 0;
-	for(int i=0;i<500;i++)
+	for(int i=0;i<5000;i++)
 		s[i] = 55;
 
 	 __enable_irq();						//Global interrupt enable
@@ -57,7 +57,7 @@ int main(void)
 	//enable_dma(s,d,500);
 	//	while(!dma_complete);
 	//my_memmove(s,d,500);
-	my_memzero(s,500);
+	my_memzero(s,5000);
 	calculate_time();
 
 	while(1);

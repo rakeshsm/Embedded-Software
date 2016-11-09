@@ -26,6 +26,6 @@
 #define LOG			//to enable uart logging
 //#define MSG
 #define DMA_test
-//#define DMA_OPT
+#define DMA_OPT
 
 #endif /* INCLUDES_SYSTEM_MAIN_H_ */
