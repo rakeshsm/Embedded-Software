@@ -36,5 +36,9 @@
 //#define MSG
 //#define DMA_test
 //#define DMA_OPT
+#define CHECK_WRITE_READ
+#define CHECK_STATUS
+#define CHECK_FIFO
+
 
 #endif /* INCLUDES_SYSTEM_MAIN_H_ */

@@ -39,7 +39,7 @@ int main(void)
 
 	uart_init(BAUD_RATE);
 	init_profiler();
-
+	spi0_init();
 #ifdef DMA_test
 	 uint8_t s[5000];
 	 uint8_t d[5000];
@@ -116,28 +116,45 @@ int main(void)
 	}
 #endif
 
+#ifdef CHECK_WRITE_READ
+	LOG_0("\r\nWriting 3 to Config register\r\n");
+	nrf_write_register(NRF_REG_00_CONFIG, 0x03);
+	LOG_0("\rWrite to register successful");
+	LOG_0("\r\nRead back written register\r\n");
+	uint8_t regVal = nrf_read_register(NRF_REG_00_CONFIG);
+	LOG_1("\r\nValue read from Config register = ",regVal);
+#endif
 
-#ifdef Get_Status
-	spi0_init();
-	//LOG_0("\r\nRead Status Value");
+#ifdef CHECK_STATUS
+	LOG_0("\r\nReading Status Value");
 	uint8_t statusVal = nrf_status_read();
-	//LOG_1("\r\nThe Status Value =",statusVal);
+	LOG_1("\r\nThe Status Value =",statusVal);
 #endif
 
-#ifdef Write_Register
-	unsigned char data = 0x03;
-	//LOG_0("\r\nWriting Value to a register\r\n");
-	nrf_write_register(NRF24_REG_00_CONFIG, data);
-	//LOG_0("\rWrite to register successful");
+#ifdef CHECK_FIFO
+	unsigned char a[32];
+	uint8_t len = 32;
+	while(len--){
+		a[len]=0xAA;
+	}
+	nrf_flush_tx_fifo();
+	LOG_0("\r\nChecking Tx_FIFO");
+	regVal = nrf_read_register(NRF_REG_17_FIFO_STATUS);
+	LOG_1("\r\nFIFO_Status register =  ",regVal);
+	LOG_0("\r\nFilling tx FIFO to max");
+	nrf_write_Tx_Payload(a, 32);
+	regVal = nrf_read_register(NRF_REG_17_FIFO_STATUS);
+	nrf_write_Tx_Payload(a, 32);
+	nrf_write_Tx_Payload(a, 32);
+	LOG_0("\r\nTx_FIFO has 96 bytes");
+	regVal = nrf_read_register(NRF_REG_17_FIFO_STATUS);
+	LOG_1("\r\nFIFO_STatus =  ",regVal);
+	LOG_0("\r\nFlushing TX_FIFO");
+	LOG_0("\r\nTx_FIFO - 0 bytes");
+	nrf_flush_tx_fifo();
+	regVal = nrf_read_register(NRF_REG_17_FIFO_STATUS);
+	LOG_1("\r\nvalue at FIFO_STatus =  ",regVal);
 #endif
-
-#ifdef Read_Register
-	uint8_t regVal;
-		//LOG_0("\r\nReading Value from a register");
-		regVal = nrf_read_register(NRF24_REG_00_CONFIG);
-		LOG_1("\r\nThe Value read from the register =",regVal);
-#endif
-
-    return 0;
+	return 0;
 }
 

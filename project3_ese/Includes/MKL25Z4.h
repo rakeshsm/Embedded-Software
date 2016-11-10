@@ -5869,7 +5869,7 @@ typedef struct {
 #define SPI_C1_SSOE_SHIFT                        1
 #define SPI_C1_SSOE_WIDTH                        1
 #define SPI_C1_SSOE(x)                           (((uint8_t)(((uint8_t)(x))<<SPI_C1_SSOE_SHIFT))&SPI_C1_SSOE_MASK)
-#define SPI_C1_CPHA_MASK                         0x4u
+#define SPI_C1_CPHA_MASK                         0x0u
 #define SPI_C1_CPHA_SHIFT                        2
 #define SPI_C1_CPHA_WIDTH                        1
 #define SPI_C1_CPHA(x)                           (((uint8_t)(((uint8_t)(x))<<SPI_C1_CPHA_SHIFT))&SPI_C1_CPHA_MASK)

@@ -25,7 +25,7 @@ void LOG_1(uint8_t * data, uint32_t  param)
 #ifdef LOG
 	LOG_0(data);
 	uint8_t dest[20];
-	itoa(dest,param,10);
+	itoa(dest,param,16);
 	LOG_0(dest);
 #endif
 }
